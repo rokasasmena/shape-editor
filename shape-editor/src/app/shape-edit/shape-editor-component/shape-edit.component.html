@@ -1,4 +1,4 @@
-<div *ngFor="let shape of shapes">
+<div *ngFor="let shape of shapes; let i = index">
   <form class="main-form">
     <div class="form-row">
       <label class="label-text">Type:</label>
@@ -20,5 +20,9 @@
       <label class="label-text">Area:</label>
       <strong>{{ calculateArea(shape) }}</strong>
     </div>
+    <button (click)="removeShape(i)">Remove</button>
   </form>
 </div>
+<button (click)="addShape()">Add Shape</button>
+<button (click)="saveShapes()">Save</button>
+

@@ -22,6 +22,25 @@ export class ShapeEditComponent implements OnInit {
     });
   }
 
+  addShape() {
+    const newShape: Shape = { type: '', length: 0, width: 0, radius: 0 };
+    this.shapes.push(newShape);
+  }
+
+  removeShape(index: number) {
+    this.shapes.splice(index, 1);
+  }
+
+  saveShapes() {
+    this.shapesService.saveShapes(this.shapes).subscribe(response => {
+      // Handle successful save
+      console.log('Shapes saved successfully!');
+    }, error => {
+      // Handle error
+      console.error('Error saving shapes:', error);
+    });
+  }
+
   calculateArea(shape: Shape): number {
     if (shape.type === 'Circle' && shape.radius !== undefined) {
       return Math.PI * shape.radius * shape.radius;
