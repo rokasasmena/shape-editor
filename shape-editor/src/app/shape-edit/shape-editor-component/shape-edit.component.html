@@ -1,2 +1,13 @@
-<p>shape-edit works!</p>
-shape-editor app is running!
+<div *ngFor="let shape of shapes">
+  <form>
+    <label>Type: {{ shape.type }}</label>
+    <br>
+    <label>Length: <input type="number" [(ngModel)]="shape.length" name="length"></label>
+    <br>
+    <label>Width: <input type="number" [(ngModel)]="shape.width" name="width"></label>
+    <br>
+    <label>Radius: <input type="number" [(ngModel)]="shape.radius" name="radius"></label>
+    <br>
+    <!--<label>Area: {{ calculateArea(shape) }}</label>-->
+  </form>
+</div>
