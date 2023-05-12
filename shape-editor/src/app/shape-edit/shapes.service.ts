@@ -6,9 +6,8 @@ import { Circle, Rectangle, Shape, Square } from "./shape.model";
 export class ShapesService {
   private storedShapes: Shape[] = [
     new Square(10),
-    new Square(15),
     new Circle(25),
-    new Rectangle(10, 20),
+    new Rectangle(10, 20, 15),
     new Circle(14),
   ];
 

@@ -1,6 +1,6 @@
   export interface Shape
 {
-  type: string;
+  type?: string;
   width?: number;
   length?: number;
   radius?: number; // Make the radius property optional
@@ -19,5 +19,5 @@ export class Square implements Shape {
 
 export class Rectangle implements Shape {
   type: string = 'Rectangle';
-  constructor (public length: number, public width: number) { }
+  constructor (public length: number, public width: number, public radius: number) { }
 }

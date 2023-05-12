@@ -21,4 +21,15 @@ export class ShapeEditComponent implements OnInit {
       this.shapes = shapes;
     });
   }
+
+  calculateArea(shape: Shape): number {
+    if (shape.type === 'Circle' && shape.radius !== undefined) {
+      return Math.PI * shape.radius * shape.radius;
+    } else if (shape.type === 'Rectangle' && shape.length !== undefined && shape.width !== undefined) {
+      return shape.length * shape.width;
+    } else if (shape.type === 'Square' && shape.length !== undefined) {
+      return shape.length * shape.length;
+    }
+    return 0;
+  }
 }

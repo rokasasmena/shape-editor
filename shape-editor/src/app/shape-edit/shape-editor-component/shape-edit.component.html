@@ -1,13 +1,24 @@
 <div *ngFor="let shape of shapes">
-  <form>
-    <label>Type: {{ shape.type }}</label>
-    <br>
-    <label>Length: <input type="number" [(ngModel)]="shape.length" name="length"></label>
-    <br>
-    <label>Width: <input type="number" [(ngModel)]="shape.width" name="width"></label>
-    <br>
-    <label>Radius: <input type="number" [(ngModel)]="shape.radius" name="radius"></label>
-    <br>
-    <!--<label>Area: {{ calculateArea(shape) }}</label>-->
+  <form class="main-form">
+    <div class="form-row">
+      <label class="label-text">Type:</label>
+      <div>{{ shape.type }}</div>
+    </div>
+    <div class="form-row">
+      <label class="label-text">Length:</label>
+      <input type="number" [(ngModel)]="shape.length" name="length" min="0" class="input-field">
+    </div>
+    <div class="form-row">
+      <label class="label-text">Width:</label>
+      <input type="number" [(ngModel)]="shape.width" name="width" min="0" class="input-field">
+    </div>
+    <div class="form-row">
+      <label class="label-text">Radius:</label>
+      <input type="number" [(ngModel)]="shape.radius" name="radius" min="0" class="input-field">
+    </div>
+    <div class="form-row">
+      <label class="label-text">Area:</label>
+      <strong>{{ calculateArea(shape) }}</strong>
+    </div>
   </form>
 </div>
