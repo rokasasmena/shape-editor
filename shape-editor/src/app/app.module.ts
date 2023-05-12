@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ShapeEditComponent } from './shape-edit/shape-editor-component/shape-edit.component';
 import { ShapesService } from './shape-edit/shapes.service';
 
@@ -15,7 +16,8 @@ import { ShapesService } from './shape-edit/shapes.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [ShapesService],
   bootstrap: [AppComponent]

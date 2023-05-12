@@ -1,28 +1,41 @@
-<div *ngFor="let shape of shapes; let i = index">
-  <form class="main-form">
-    <div class="form-row">
-      <label class="label-text">Type:</label>
-      <div>{{ shape.type }}</div>
-    </div>
-    <div class="form-row">
-      <label class="label-text">Length:</label>
-      <input type="number" [(ngModel)]="shape.length" name="length" min="0" class="input-field">
-    </div>
-    <div class="form-row">
-      <label class="label-text">Width:</label>
-      <input type="number" [(ngModel)]="shape.width" name="width" min="0" class="input-field">
-    </div>
-    <div class="form-row">
-      <label class="label-text">Radius:</label>
-      <input type="number" [(ngModel)]="shape.radius" name="radius" min="0" class="input-field">
-    </div>
-    <div class="form-row">
-      <label class="label-text">Area:</label>
-      <strong>{{ calculateArea(shape) }}</strong>
-    </div>
-    <button (click)="removeShape(i)">Remove</button>
-  </form>
-</div>
-<button (click)="addShape()">Add Shape</button>
-<button (click)="saveShapes()">Save</button>
+<form [formGroup]="form" (ngSubmit)="saveForm()">
+  <div formArrayName="shapes">
+    <div class="shape-control" *ngFor="let shapeCtrl of shapesControls.controls; let i = index" [formGroupName]="i" class="shape-control">
+      <div>
+        <label>Shape Type:</label>
+        <select class="select-shape" formControlName="_type">
+          <option value="Circle">Circle</option>
+          <option value="Square">Square</option>
+          <option value="Rectangle">Rectangle</option>
+        </select>
+      </div>
 
+      <div *ngIf="shapeCtrl.get('_type')?.value === 'Circle'">
+        <label>Radius</label>
+        <input type="number" formControlName="radius" class="input-field" required>
+      </div>
+
+      <div *ngIf="shapeCtrl.get('_type')?.value === 'Square'">
+        <label>Size</label>
+        <input type="number" formControlName="size" class="input-field" required>
+      </div>
+
+      <div *ngIf="shapeCtrl.get('_type')?.value === 'Rectangle'">
+        <label>Length</label>
+        <input type="number" formControlName="length" class="input-field" required>
+        <label>Width</label>
+        <input type="number" formControlName="width" class="input-field" required>
+      </div>
+
+      <div>
+        <label>Area</label>
+        <span>{{ getArea(shapeCtrl) | number:'1.2-2' }}</span>
+      </div>
+
+      <button type="button" (click)="removeShapeControl(i)">Remove Shape</button>
+    </div>
+  </div>
+
+  <button type="button" (click)="addShapeControl()">Add Shape</button>
+  <button type="submit">Save</button>
+</form>

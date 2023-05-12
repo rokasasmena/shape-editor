@@ -3,7 +3,8 @@
   type?: string;
   width?: number;
   length?: number;
-  radius?: number; // Make the radius property optional
+  radius?: number;
+  size?: number;
 }
 
 
