@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShapeEditComponent } from './shape-edit/shape-editor-component/shape-edit.component';
 import { ShapesService } from './shape-edit/shapes.service';
+import { LazyModule } from './lazy-loading/lazy.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ShapesService } from './shape-edit/shapes.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LazyModule
   ],
   providers: [ShapesService],
   bootstrap: [AppComponent]
