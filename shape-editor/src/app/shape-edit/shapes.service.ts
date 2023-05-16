@@ -7,7 +7,7 @@ export class ShapesService {
   private storedShapes: Shape[] = [
     new Square(10),
     new Circle(25),
-    new Rectangle(10, 20, 15),
+    new Rectangle(10, 20),
     new Circle(14),
   ];
 

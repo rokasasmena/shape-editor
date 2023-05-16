@@ -20,5 +20,5 @@ export class Square implements Shape {
 
 export class Rectangle implements Shape {
   type: string = 'Rectangle';
-  constructor (public length: number, public width: number, public radius: number) { }
+  constructor (public length: number, public width: number) { }
 }

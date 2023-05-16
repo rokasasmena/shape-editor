@@ -81,6 +81,7 @@ export class ShapeEditComponent implements OnInit {
     const shapes = this.form.value.shapes;
     this.shapesService.saveShapes(shapes).subscribe((savedShapes: Shape[]) => {
       this.shapes = savedShapes;
+      console.log('Form submitted');
     });
   }
 }
