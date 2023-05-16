@@ -10,6 +10,14 @@ import { ShapesService } from './shape-edit/shapes.service';
 import { LazyModule } from './lazy-loading/lazy.module';
 import { RouterModule, Routes } from '@angular/router';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+
 const routes: Routes = [
   { path: '', component: ShapeEditComponent }
 ];
@@ -26,6 +34,13 @@ const routes: Routes = [
     ReactiveFormsModule,
     LazyModule,
     RouterModule.forRoot(routes),
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   exports: [RouterModule],
   providers: [ShapesService],

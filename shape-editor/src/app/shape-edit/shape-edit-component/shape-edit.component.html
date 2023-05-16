@@ -1,41 +1,60 @@
 <form [formGroup]="form" (ngSubmit)="saveForm()">
   <div formArrayName="shapes">
-    <div class="shape-control" *ngFor="let shapeCtrl of shapesControls.controls; let i = index" [formGroupName]="i" class="shape-control">
-      <div>
-        <label>Shape Type:</label>
-        <select class="select-shape" formControlName="_type">
-          <option value="Circle">Circle</option>
-          <option value="Square">Square</option>
-          <option value="Rectangle">Rectangle</option>
-        </select>
-      </div>
+    <div
+      class="shape-control"
+      *ngFor="let shapeCtrl of shapesControls.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <mat-card class="shape-card">
+        <mat-card-content>
+          <mat-form-field>
+            <mat-label>Shape Type</mat-label>
+            <mat-select formControlName="_type">
+              <mat-option value="Circle">Circle</mat-option>
+              <mat-option value="Square">Square</mat-option>
+              <mat-option value="Rectangle">Rectangle</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <div *ngIf="shapeCtrl.get('_type')?.value === 'Circle'">
-        <label>Radius</label>
-        <input type="number" formControlName="radius" class="input-field" required>
-      </div>
+          <div *ngIf="shapeCtrl.get('_type')?.value === 'Circle'">
+            <mat-form-field>
+              <mat-label>Radius</mat-label>
+              <input matInput type="number" formControlName="radius" required>
+            </mat-form-field>
+          </div>
 
-      <div *ngIf="shapeCtrl.get('_type')?.value === 'Square'">
-        <label>Size</label>
-        <input type="number" formControlName="size" class="input-field" required>
-      </div>
+          <div *ngIf="shapeCtrl.get('_type')?.value === 'Square'">
+            <mat-form-field>
+              <mat-label>Size</mat-label>
+              <input matInput type="number" formControlName="size" required>
+            </mat-form-field>
+          </div>
 
-      <div *ngIf="shapeCtrl.get('_type')?.value === 'Rectangle'">
-        <label>Length</label>
-        <input type="number" formControlName="length" class="input-field" required>
-        <label>Width</label>
-        <input type="number" formControlName="width" class="input-field" required>
-      </div>
+          <div *ngIf="shapeCtrl.get('_type')?.value === 'Rectangle'">
+            <mat-form-field>
+              <mat-label>Length</mat-label>
+              <input matInput type="number" formControlName="length" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Width</mat-label>
+              <input matInput type="number" formControlName="width" required>
+            </mat-form-field>
+          </div>
 
-      <div>
-        <label>Area</label>
-        <span>{{ getArea(shapeCtrl) | number:'1.2-2' }}</span>
-      </div>
+          <div class="area-container">
+            <label>Area</label>
+            <span class="area-value">{{ getArea(shapeCtrl) | number:'1.2-2' }}</span>
+          </div>
+        </mat-card-content>
 
-      <button type="button" (click)="removeShapeControl(i)">Remove Shape</button>
+        <mat-card-actions>
+          <button mat-raised-button type="button" color="warn" (click)="removeShapeControl(i)">Remove Shape</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 
-  <button type="button" (click)="addShapeControl()">Add Shape</button>
-  <button type="submit">Save</button>
+  <button mat-raised-button type="button" color="accent" (click)="addShapeControl()" style="margin-right: 10px">Add Shape</button>
+  <button mat-raised-button color="primary" type="submit">Save</button>
 </form>
+

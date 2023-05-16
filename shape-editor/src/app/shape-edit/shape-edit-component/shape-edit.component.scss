@@ -1,9 +1,11 @@
 form {
+  display: inline-block;
+  padding-left: 20px;
   .shape-control {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 
     label {
       display: inline-flex;
@@ -15,9 +17,29 @@ form {
       width: 100px;
     }
   }
+  mat-form-field {
+    width: 100%;
+  }
 
   button {
     margin-bottom: 10px;
     width: max-content;
   }
+}
+
+.area-container {
+  display: flex;
+  align-items: center;
+}
+
+.area-container label {
+  margin-right: 8px;
+}
+
+.area-value {
+  font-weight: bold;
+}
+
+.shape-card {
+  width: 100%;
 }
