@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -37,7 +38,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatIconModule,
     MatOptionModule,
-    ShapeEditModule
+    ShapeEditModule,
+    HttpClientModule
   ],
   exports: [RouterModule],
   bootstrap: [AppComponent]

@@ -15,7 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatOptionModule } from '@angular/material/core';
 
-
 const routes: Routes = [
   { path: '', component: ShapeEditComponent }
 ];
@@ -36,7 +35,7 @@ const routes: Routes = [
     MatIconModule,
     MatOptionModule
   ],
-  exports: [ShapeEditComponent],
+  exports: [RouterModule, ShapeEditComponent],
   providers: [ShapesService]
 })
 export class ShapeEditModule {}
