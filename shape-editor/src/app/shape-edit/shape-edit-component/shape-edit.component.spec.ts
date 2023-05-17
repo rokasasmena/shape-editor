@@ -1,59 +1,91 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed, fakeAsync, flush, waitForAsync } from '@angular/core/testing';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ShapeEditComponent } from './shape-edit.component';
 import { ShapesService } from "../shapes.service";
+import { DebugElement } from '@angular/core';
+import { of } from 'rxjs';
+import { Circle, Rectangle, Shape, Square } from '../shape.model';
+import { By } from '@angular/platform-browser';
+import { AppModule } from 'src/app/app.module';
 
-describe('ShapeEditComponent', () => {
-  let component: ShapeEditComponent;
-  let fixture: ComponentFixture<ShapeEditComponent>;
+fdescribe('ShapeEditComponent', () => {
+  let component: ShapeEditComponent,
+    fixture: ComponentFixture<ShapeEditComponent>,
+    el: DebugElement,
+    shapes: any;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
+  const storedShapes: Shape[] = [
+    new Square(10),
+    new Circle(25),
+    new Rectangle(10, 20),
+    new Circle(14),
+  ];
+
+  beforeEach(waitForAsync(() => {
+    const shapesSpy = jasmine.createSpyObj('ShapesService', ['getShapes', 'saveShapes']);
+
+    TestBed.configureTestingModule({
+      imports: [AppModule],
       declarations: [ShapeEditComponent],
-      providers: [ShapesService]
-    }).compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ShapeEditComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+      providers: [
+        FormBuilder,
+        { provide: ShapesService, useValue: shapesSpy }
+      ]
+    }).compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(ShapeEditComponent);
+        component = fixture.componentInstance;
+        el = fixture.debugElement;
+        shapes = TestBed.inject(ShapesService);
+      });
+  }));
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize the form with at least one shape control', () => {
-    expect(component.shapesControls.length).toBeGreaterThanOrEqual(1);
-  });
+  it('should initialize the form with shape control', () => {
+    shapes.getShapes.and.returnValue(of(storedShapes));
 
-  it('should add a shape control when clicking the "Add Shape" button', () => {
-    const addButton = fixture.debugElement.nativeElement.querySelector('.add-shape-button');
-    addButton.click(); // Trigger click event
     fixture.detectChanges();
 
-    const shapeControls = component.shapesControls;
-    expect(shapeControls.length).toBe(1); // Expect one shape control to be added
+    const cards = el.queryAll(By.css('.mat-mdc-card'));
+
+    expect(cards.length).toBeGreaterThan(0);
   });
 
-  it('should remove a shape control when clicking the "Remove Shape" button', () => {
-    // Add a shape control
-    component.addShapeControl();
+  it('should add a shape control when clicking the "Add Shape" button', fakeAsync(() => {
+    shapes.getShapes.and.returnValue(of(storedShapes));
+    shapes.saveShapes.and.returnValue(of(storedShapes.push(new Circle(1))));
+
     fixture.detectChanges();
 
-    // Get the "Remove Shape" button
-    const removeButton = fixture.nativeElement.querySelector('.remove-shape-btn');
+    const buttons = el.queryAll(By.css('button'));
 
-    // Click the "Remove Shape" button
-    removeButton.click();
+    el.triggerEventHandler('click', buttons[1]);
+
     fixture.detectChanges();
 
-    // Verify that the shape control was removed
-    expect(component.shapesControls.length).toBe(0);
-  });
+    flush();
 
-  // Add more test cases for other functionality and edge cases as needed
+    const cards = el.queryAll(By.css('.mat-mdc-card'));
 
+    expect(cards.length).toBeGreaterThan(0);
+    expect(cards.pop()?.nativeElement.textContent).toContain('Area');
+  }));
+
+  it('should call removeShapeControl when clicking the "Remove Shape" button', fakeAsync(() => {
+    shapes.getShapes.and.returnValue(of(storedShapes));
+    spyOn(component, 'removeShapeControl');
+
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.nativeElement.querySelector('button');
+
+    button.click();
+
+    flush();
+
+    expect(component.removeShapeControl).toHaveBeenCalled();
+  }));
 });

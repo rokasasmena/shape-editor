@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppComponent } from './app.component';
+import { ShapeEditComponent } from './shape-edit-component/shape-edit.component';
+import { ShapesService } from './shapes.service';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,21 +14,19 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatOptionModule } from '@angular/material/core';
-import { ShapeEditModule } from './shape-edit/shape-edit.module';
+
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./shape-edit/shape-edit.module').then(m => m.ShapeEditModule) }
+  { path: '', component: ShapeEditComponent }
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [ShapeEditComponent],
   imports: [
-    BrowserModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forChild(routes),
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
@@ -36,10 +34,9 @@ const routes: Routes = [
     MatCardModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatOptionModule,
-    ShapeEditModule
+    MatOptionModule
   ],
-  exports: [RouterModule],
-  bootstrap: [AppComponent]
+  exports: [ShapeEditComponent],
+  providers: [ShapesService]
 })
-export class AppModule {}
+export class ShapeEditModule {}

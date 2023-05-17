@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LazyRoutingModule } from "./lazy-loading/lazy-routing.module";
 
 const routes: Routes = [
   { path: '', redirectTo: '/lazy-component-1', pathMatch: 'full' },
@@ -8,7 +7,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), LazyRoutingModule],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
