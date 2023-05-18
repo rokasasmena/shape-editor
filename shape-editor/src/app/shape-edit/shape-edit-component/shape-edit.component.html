@@ -19,25 +19,25 @@
           <div *ngIf="shapeCtrl.get('_type')?.value === 'Circle'">
             <mat-form-field>
               <mat-label>Radius</mat-label>
-              <input matInput type="number" formControlName="radius" required>
+              <input matInput type="number" formControlName="radius" required min="0">
             </mat-form-field>
           </div>
 
           <div *ngIf="shapeCtrl.get('_type')?.value === 'Square'">
             <mat-form-field>
               <mat-label>Size</mat-label>
-              <input matInput type="number" formControlName="size" required>
+              <input matInput type="number" formControlName="size" required min="0">
             </mat-form-field>
           </div>
 
           <div *ngIf="shapeCtrl.get('_type')?.value === 'Rectangle'">
             <mat-form-field>
               <mat-label>Length</mat-label>
-              <input matInput type="number" formControlName="length" required>
+              <input matInput type="number" formControlName="length" required min="0">
             </mat-form-field>
             <mat-form-field>
               <mat-label>Width</mat-label>
-              <input matInput type="number" formControlName="width" required>
+              <input matInput type="number" formControlName="width" required min="0">
             </mat-form-field>
           </div>
 
